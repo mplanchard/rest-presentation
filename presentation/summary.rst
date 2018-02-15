@@ -29,6 +29,8 @@ REST Servers
 * Uniform interface
 * Content negotiation
 
+....
+
 .. [#f1] In the context of REST, "hypertext" means content in which there is a
         "simultaneous presentation of information and controls such that the
         information becomes the affordance through which the user (or automaton)
