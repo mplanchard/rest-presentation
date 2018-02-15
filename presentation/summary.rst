@@ -6,8 +6,12 @@ The most important things to remember about REST
 REST
 ----
 
-* REST is an architectural pattern, not an interface specification
-* HTTP was built with REST as its guiding principle
+* Stands for **Representational State Transfer**
+* Is an architectural style, not an interface specification or a protocol
+* Emphasizes speed, reliability, evolution, and reuse in a network context
+* Hypertext-driven [#f1]_
+* HTTP was designed with REST as its guiding principle
+* You should read `the dissertation <https://www.ics.uci.edu/~fielding/pubs/dissertation/top.htm>`_
 
 REST Servers
 ------------
@@ -16,8 +20,17 @@ REST Servers
 
     - Roy Fielding
 
-* Are stateless
-* Are discoverable
-* Use URIs to indicate resources, not representations
-* Implement a uniform interface
-* Utilize content negotiation
+* Stateless
+* Discoverable
+* Resources, not representations
+* Uniform interface
+* Content negotiation
+
+.. [#f1] In the context of REST, "hypertext" means content in which there is a
+        "simultaneous presentation of information and controls such that the
+        information becomes the affordance through which the user (or automaton)
+        obtains choices and selects actions."
+
+....
+
+`next <history.rst>`_
