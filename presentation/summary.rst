@@ -1,10 +1,12 @@
+#########
 Takeaways
-=========
+#########
 
 The most important things to remember about REST
 
+****
 REST
-----
+****
 
 * Stands for **Representational State Transfer**
 * Is an architectural style, not an interface specification or a protocol
@@ -13,12 +15,13 @@ REST
 * HTTP was designed with REST as its guiding principle
 * You should read `the dissertation <https://www.ics.uci.edu/~fielding/pubs/dissertation/top.htm>`_
 
+************
 REST Servers
-------------
+************
 
     I am getting frustrated by the number of people calling any HTTP-based interface a REST API
 
-    - Roy Fielding
+-Roy Fielding
 
 * Stateless
 * Discoverable
@@ -33,4 +36,4 @@ REST Servers
 
 ....
 
-`next <history.rst>`_
+`previous <README.rst>`_ | `next <history.rst>`_
