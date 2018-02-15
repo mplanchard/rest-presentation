@@ -21,7 +21,7 @@ REST Servers
 
     I am getting frustrated by the number of people calling any HTTP-based interface a REST API
 
--Roy Fielding
+    -Roy Fielding
 
 * Stateless
 * Discoverable
