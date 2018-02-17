@@ -418,7 +418,7 @@ Advantages:
 Disadvantages:
 
 * Less improvement than replicated repository, since cache misses are
-more likely (only holding recently used data)
+  more likely (only holding recently used data)
 
 Hierarchical Styles
 +++++++++++++++++++
@@ -452,7 +452,7 @@ Advantages:
 
 * Reduced coupling, since only adjacent layers interact
 * Allows knowledge of a limited suite of components where knowledge of
-all components would be too expensive
+  all components would be too expensive
 
 Disadvantages:
 
@@ -539,13 +539,13 @@ Example:
 Advantages:
 
 * Allow large data sets to be iteratively reduced on the server side without
-transmitting it across the network
+  transmitting it across the network
 * Visibility improved by using a standard query language
 
 Disadvantages:
 
 * Client must understand same data manipulation concepts as the server (reduced
-simplicity)
+  simplicity)
 * Reduced scalability
 * Reduced reliability (unknown state on failure)
 
@@ -596,9 +596,9 @@ executes locally.
 Advantages:
 
 * Ability to add features to already-deployed client (extensibility and
-configurability)
+  configurability)
 * Better user-perceived performance if the code can adapt to the client
-environment
+  environment
 * Improved scalability
 
 Disadvantages:
@@ -637,12 +637,12 @@ Advantages:
 * Reusable
 * Evolvable
 * Can improve efficiency for systems dominated by data monitoring rather than
-retrieval (no polling)
+  retrieval (no polling)
 
 Disadvantages:
 
 * Poor understandability (hard to know what will happen in response to a given
-event)
+  event)
 * Not suitable for exchanging large-grain data
 * Reliability (cannot recover from partial failure)
 

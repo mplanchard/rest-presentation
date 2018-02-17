@@ -55,4 +55,4 @@ Fowler
 (Note: not by Fowler, but rather Brandon Byars, although on the Fowler blog)
 
 * Interesting discussion on implementing internal (intra-enterprise)
-REST APIs
+  REST APIs
