@@ -330,3 +330,362 @@ Reliability
   The degree to which an architecture is susceptible to failure at the system
   level in the presence of partial failures within components, connectors,
   or data.
+
+Chapter 3 - Network Based Architectural Styles
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+This chapter catalogues a variety of existing architectural styles, evaluating
+them according to the properties defined in the previous chapter.
+
+Data-Flow Styles
+++++++++++++++++
+
+Pipe and Filter
+***************
+
+Each component reads streams of data on input and produces streams of
+data on output while applying incremental transformation and processing.
+
+* filters must be completely independent (no coupling)
+* no shared state, control thread, or identity with other filters
+
+Advantages:
+
+* Overall stream a composition of behaviors of each filter
+* Supports reuse
+* Extensible
+* Evolvable
+* Verifiable
+* Concurrency
+
+Disadvantages:
+
+* Propagation delay
+* Batch sequential processing
+* Components cannot interact with their environment
+
+
+Uniform Pipe and Filter
+***********************
+
+Adds the constraint that all filters must have the same interface.
+
+Example: Unix processes (stdin, stdout, stderr)
+
+Advantages:
+
+* Mix and match at will for new functionality
+
+Disadvantages:
+
+* May reduce network performance if data conversion needs to be performed
+
+Replication Styles
+++++++++++++++++++
+
+Replicated Repository
+*********************
+
+More than one process provide the same service, while providing the illusion
+there is only one centralized service.
+
+Examples:
+
+* Distributed filesystems
+* CVS
+
+Advantages:
+
+* Improved user-perceived performance
+
+Disadvantages:
+
+* Difficult to maintain consistency
+
+Cache
+*****
+
+Replication of the result of an individual request so it may be reused
+by later requests
+
+Can be lazy (replicated upon a request being made) or active (replicated
+in advance).
+
+Advantages:
+
+* Simpler to implement than `replicated repository`_
+
+Disadvantages:
+
+* Less improvement than replicated repository, since cache misses are
+more likely (only holding recently used data)
+
+Hierarchical Styles
++++++++++++++++++++
+
+Client-Server
+*************
+
+A server component waits for and responds to requests from client component(s).
+
+Advantages:
+
+* Separation of concerns
+* Scalability
+
+Layered-Client-Server
+*********************
+
+A variation of the Layered-System style, where each layer of a system provides
+services to the layer above it and uses the services of the layer below it.
+Layered client-server adds proxy and gateway components to `client-server`_.
+Proxies are shared servers for multiple client components, forwarding
+requests to server components. Gateways appear to be normal servers,
+but forward requests to inner servers.
+
+Examples:
+
+* TCP/IP stack
+* Hardware interface libraries
+
+Advantages:
+
+* Reduced coupling, since only adjacent layers interact
+* Allows knowledge of a limited suite of components where knowledge of
+all components would be too expensive
+
+Disadvantages:
+
+* Add overhead and latency to data processing
+
+Client-Stateless-Server
+***********************
+
+Adds the constraint to `client-server`_ that no session state is allowed on
+the server component.
+
+Advantages:
+
+* Visibility
+* Reliability
+* Scalability
+
+Disadvantages:
+
+* Increased per-interaction overhead
+
+Client-Cache-Stateless-Server
+*****************************
+
+Adds a cache component to `client-stateless-server`_.
+
+Examples:
+
+* NFS
+
+Advantages:
+
+* Can partially or completely eliminate some interactions
+
+
+Layered-Client-Cache-Stateless-Server
+*************************************
+
+Combination of `layered-client-server`_ and `client-cache-stateless-server`_.
+
+Examples:
+
+* DNS
+
+Advantages and disadvantages a combination of `layered-client-server`_
+and `client-cache-stateless-server`_
+
+Remote Session
+**************
+
+Variant of `client-server`_ where application state kept entirely on the
+server to maximize reuse of client components.
+
+Examples:
+
+* TELNET
+* FTP
+
+Advantages:
+
+* Central maintenance of server interface
+* Improved efficiency if clients make use of session context
+
+Disadvantages:
+
+* Reduces scalability
+* Reduces visibility
+
+Remote Data Access
+******************
+
+Variant of `client-server`_ where application state is spread across client
+and server.
+
+Example:
+
+    A client sends a database query in a standard format, such as SQL, to a
+    remote server. The server allocates a workspace and performs the query,
+    which may result in a very large data set. The client can then make
+    further operations upon the result set (such as table joins) or retrieve
+    the result one piece at a time. The client must know about the data
+    structure of the service to build structure-dependent queries.
+
+Advantages:
+
+* Allow large data sets to be iteratively reduced on the server side without
+transmitting it across the network
+* Visibility improved by using a standard query language
+
+Disadvantages:
+
+* Client must understand same data manipulation concepts as the server (reduced
+simplicity)
+* Reduced scalability
+* Reduced reliability (unknown state on failure)
+
+Mobile Code Styles
+++++++++++++++++++
+
+Change the distance between processing and source of data.
+
+Virtual Machine
+***************
+
+Advantages:
+
+* Separation between instruction and implementation (portability)
+* Extensible
+
+Disadvantages:
+
+* Reduced visibility
+* Reduced simplicity
+
+Remote Evaluation
+*****************
+
+Derived from `client-server`_ and `virtual machine`_. Client sends know-how
+on how to perform a service, server uses its resources to do it and returns
+the result.
+
+Advantages:
+
+* Customization of server component's services (extensibility and customizability)
+* Efficiency
+
+Disadvantages:
+
+* Reduced simplicity due to need to manage evaluation environment
+* Reduced scalability
+* Reduced visibility
+
+
+Code on Demand
+**************
+
+Client has access to resources, but not the know-how of how to process them.
+Sends request to remote server for code representing the know-how, which it
+executes locally.
+
+Advantages:
+
+* Ability to add features to already-deployed client (extensibility and
+configurability)
+* Better user-perceived performance if the code can adapt to the client
+environment
+* Improved scalability
+
+Disadvantages:
+
+* Reduced simplicity
+* Reduced visibility
+
+Layered-Code-on-Demand-Client-Cache-Stateless-Server
+****************************************************
+
+Since code is another data element, it can be used with the
+`layered-client-cache-stateless-server`_ style.
+
+Mobile Agent
+************
+
+Entire computational component moved to a remote site, with state, necessary
+code, and data.
+
+Combination of `remote evaluation`_ and `code on demand`_.
+
+Peer-to-Peer Styles
++++++++++++++++++++
+
+Event-based Integration
+***********************
+
+A component can announce one or more events. Other components can register as
+listeners for event types. When an event is triggered, the system invokes
+the registered components.
+
+Advantages:
+
+* Removes need for identity on connector interface
+* Extensible
+* Reusable
+* Evolvable
+* Can improve efficiency for systems dominated by data monitoring rather than
+retrieval (no polling)
+
+Disadvantages:
+
+* Poor understandability (hard to know what will happen in response to a given
+event)
+* Not suitable for exchanging large-grain data
+* Reliability (cannot recover from partial failure)
+
+C2
+***
+
+Combines `event-based integration`_ with `layered-client-server`_. Components
+communicate by asynchronous notifications going down, and asynchronous
+requests going up. Notifications are an announcement of state change.
+
+Advantages:
+
+* Enforces loose coupling
+* Layered filtering allows evolvability, scalability, and reliability
+
+Distributed Objects
+*******************
+
+Organizes a system of components acting as peers. State is distributed
+among the objects. Operations may cause a chain of action between objects.
+
+Advantages:
+
+* State can be kept where it is most likely to be up-to-date.
+
+Disadvantages:
+
+* Visibility (hard to see state when spread among objects)
+* All connected objects must be changed when an object's identity changes
+* Must be a controller object
+
+Brokered Distributed Objects
+****************************
+
+Introduces name resolver components whose purpose is to answer client
+object requests for general service names with the specific name of an object
+which will satisfy the request.
+
+Advantages:
+
+* Reusability
+* Evolvability
+
+Disadvantages:
+
+* Requires additional network interactions
