@@ -364,6 +364,7 @@ Disadvantages:
 * Batch sequential processing
 * Components cannot interact with their environment
 
+.. _`uniform interface`:
 
 Uniform Pipe and Filter
 ***********************
@@ -433,6 +434,8 @@ Advantages:
 * Separation of concerns
 * Scalability
 
+.. _`layered system`:
+
 Layered-Client-Server
 *********************
 
@@ -457,6 +460,8 @@ Advantages:
 Disadvantages:
 
 * Add overhead and latency to data processing
+
+.. _stateless:
 
 Client-Stateless-Server
 ***********************
@@ -689,3 +694,427 @@ Advantages:
 Disadvantages:
 
 * Requires additional network interactions
+
+Chapter 4 - Designing the Web Architecture: Problems and Insights
+-----------------------------------------------------------------
+
+This chapter describes some of the particular problems presented by the
+web in trying to establish the most effective architectural system, due
+to its structure and purpose.
+
+WWW Application Domain Requirements
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+This section defines some of the required and desired characteristics of
+the web domain in terms of the desired nature of the world wide web, as
+originally defined by Berners Lee.
+
+Low Entry-barrier
++++++++++++++++++
+
+Hypermedia is the web interface due to its simplicity and generality.
+
+* Allows for unlimited structuring
+* Allows the definition of complex relationships
+* Generic query interface
+
+Availability of overall system does not affect authoring of content.
+
+* Simple format usable whether connected to the internet or not
+* Ability to specify a reference to information before the target is
+  available
+* Ease of communicating references
+
+Simplicity of Development
+
+* Text-based protocols to allow viewing and interactive testing
+* Allowed early adoption in spite of lack of standards
+
+Extensibility
++++++++++++++
+
+Allows the web to evolve to match the evolving needs of users. The web
+must be prepared for change.
+
+Distributed Hypermedia
+++++++++++++++++++++++
+
+    Hypermedia is defined by **the presence of application control information
+    embedded within, or as a layer above, the presentation information.**
+
+* Allows the presentation and control information to be stored at remote locations
+* Requires the transfer of large amounts of data from where it is stored to where
+  it is used (**large-grain data transfer**)
+
+Usability is highly sensitive to user-perceived latency. Architecture
+therefore needs to minimize network interactions.
+
+Internet-scale
+++++++++++++++
+
+    The web is intended to be an *Internet-scale* distributed hypermedia system
+
+Must be abel to interconnect information across multiple organizational
+boundaries, as well as geographic dispersement. Anarchic scalability and
+independent deployment of components are required.
+
+Anarchic Scalability
+********************
+
+A system open to the Internet does not have the benefit of all entities
+within the system acting towards a common goal or under the control of any
+one entity.
+
+The architecture must account for **unanticipated load** and **malicious actors**.
+This requires visibility and scalability.
+
+Therefore:
+
+* Clients cannot be expected to maintain knowledge of all servers
+* Servers cannot be expected to retain knowledge of state across requests
+* Hypermedia data cannot contain back-pointers
+
+Security is also a significant concern.
+
+* Multiple trust boundaries may be present in any communication
+* Intermediary applications (e.g. firewalls) must be able to inspect interactions
+  and prevent certain of them from being acted upon
+* Participants must assume that information is untrusted or require additional
+  authentication before giving trust.
+
+  + This requires ability of communicating authentication data and authorization
+    controls
+  + Because authentication degrades stability, the default operation should be
+    limited to actions not requiring trust data
+
+Independent Deployment
+**********************
+
+* Multiple organizational boundaries require gradual and fragmented change.
+* Old and new implementations must be able to co-exist without preventing
+  new implementations from taking advantage of extended capabilities.
+* Existing elements must be designed expecting that features will be added.
+* Older implementations need to be easily identified to allow legacy interactions.
+* Deployment must be enabled in an iterative, partial fashion, since no
+  orderly transition is possible.
+
+Problem
+~~~~~~~
+
+The rapid growth in the adoption of the web caused concerns about a general
+collapse due both to the increased traffic and poor network characteristics
+of early HTTP.
+
+As adoption grew, the use cases changed from a primarily textual representation
+of information to one utilizing inline images and other rich media. These
+challenged the single request-response oriented architecture of the early
+web. A variety of conflicting standards were proposed by several organizations.
+
+The Internet Engineering Taskforce formed working groups to refine and/or
+define the three primary standards of the web: URI, HTTP, and HTML. Their
+goal was to:
+
+* Define the subset of existing architectural communication in the early web
+* Identify problems with that architecture
+* Specify a set of standards to solve the problem
+
+Approach
+~~~~~~~~
+
+The early web was based on principles of separation of concerns, simplicity,
+and generality, but lacked an architectural description and rationale.
+
+    An `architectural style <styles>`_ is a named set of constraints on
+    architectural elements that induces the set of properties of the
+    desired architecture.
+
+Hypothesis 1
+++++++++++++
+
+    The design rational behind the WWW architecture can be described by
+    an architectural style consisting of the set of constraints applied
+    to the elements within web architecture.
+
+Hypothesis 2
+++++++++++++
+
+    Constraints can be added to the WWW architectural style to derive a new
+    hybrid style that better reflects the desired properties of a modern
+    web architecture.
+
+Hypothesis 3
+++++++++++++
+
+    Proposals to modify the Web architecture can be compared to the updated
+    WWW architectural style and analyzed for conflicts prior to deployment
+
+
+Chapter 5: Representational State Transfer (REST)
+-------------------------------------------------
+
+Deriving REST
+~~~~~~~~~~~~~
+
+REST is a combination of the constraints from the following architectural styles:
+
+1. The null style
+
+**Early architecture**
+
+2. `Client-Server`_
+3. `Stateless`_
+4. `Cache`_
+
+**REST Additions**
+
+5. `Uniform Interface`_
+6. `Layered System`_
+7. `Code on Demand`_
+
+REST - Client-Server
+++++++++++++++++++++
+
+Clients and servers must be separate components.
+
+* Separation of concerns
+* Portability of UI across multiple platforms
+* Scalability
+* Independent evolution
+
+REST - Stateless
+++++++++++++++++
+
+All REST interactions are stateless.
+
+* Visibility
+* Reliability
+* Scalability
+* Simplifies server-side implementation
+* May increase per-interaction overhead
+* Reduces server-side control over client behavior
+
+REST - Cache
+++++++++++++
+
+Responses must be implicitly or explicitly labeled as cacheable or non-cacheable.
+
+* Efficiency
+* Partially or completely eliminate some interactions
+* Can decrease reliability of data if cache differs from data that would be
+  sent by the server
+
+REST - Uniform Interface
+++++++++++++++++++++++++
+
+The following constraints provide a uniform interface between components:
+
+* Identification of resources
+* Manipulation of resources through representations
+* Self-descriptive messages
+* Hypermedia as the engine of application state
+
+This provides:
+
+* Simplification of overall system architecture
+* Visibility of interactions improved
+* Decoupling of implementations from provided services
+* Independent evolvability
+* Degrades efficiency, because of need to transform information into the
+  standard form
+* Designed to be efficient for **large-grain** hypermedia data transfer,
+  the common use-case of the web.
+
+REST - Layered System
++++++++++++++++++++++
+
+Each component cannot "see" beyond the immediate layer with which they are
+interacting.
+
+* Places a bound on overall system complexity
+* Promotes substrate independence
+* Add overhead and latency
+* When combined with `uniform interface`_, creates similar architectural
+  properties to `pipe and filter`_
+
+For example:
+
+* Encapsulation of legacy services
+* Protection of new services from legacy clients
+* Load balancing
+* Firewalling
+
+REST - Code on Demand
++++++++++++++++++++++
+
+**(Optional constraint)**
+
+Allows client functionality to be extended by downloading and executing
+code in the form of applets or scripts.
+
+* Simplifies clients by reducing number of required features
+* Reduces visibility
+
+REST Architectural Elements
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    REST is an abstraction of architectural elements within a distributed
+    hypermedia system.
+
+Data Elements
++++++++++++++
+
+Information on the web must be moved from where it is stored to where it will
+be consumed.
+
+Components communicate by transferring a **representation** of a resource
+in a format selected *dynamically* based on the capabilities or desires of the
+recipient and the nature of the resource. Shared understanding of data types
+is provided via metadata.
+
+======================= =======================================================
+Data Element            Examples
+======================= =======================================================
+resource                the intended conceptual target of a hypertext reference
+resource identifier     URL, URI
+representation          HTML document, JSON blob, PNG image, MP4 movie
+representation metadata Content-Type, Last-Modified
+resource metadata       Content-Location, Vary
+control data            If-Modified-Since, Cache-Control
+======================= =======================================================
+
+.. _resources:
+.. _`resource identifiers`:
+
+Resources and Resource Identifiers
+**********************************
+
+    Any information that can be named can be a resource: a document or image,
+    a temporal service (e.g. "today's weather in Los Angeles"), a collection
+    of other resources, a non-virtual object (e.g. a person), and so on. In
+    other words, any concept that might be the target of an author's hypertext
+    reference must fit within the definition of a resource. A resource is a
+    conceptual mapping to a set of entities, not the entity that corresponds
+    to the mapping at any particular point in time.
+
+    More precisely, a resource R is a temporally varying membership function
+    MsubR(t), which for time t maps to a set of entities, or values, which are
+    equivalent.
+
+* values in the set may be *resource identifiers* or *resource representations*
+* resource can map to the empty set
+* resources may be static or variable (only the identification must be static)
+
+Provides:
+
+* generality (many sources of information without distinguishing them by type
+  or implementation)
+* allows late binding of a reference to a representation, enabling content
+  negotiation based on the request
+* allows reference to a concept rather than a singular representation of the concept
+* identification of a resource involved in inter-component interaction
+
+Representations
+***************
+
+    REST components perform actions on a resource by using a representation to
+    capture the current or intended state of that resource and transferring
+    that representation between components. A representation is a sequence of
+    bytes, plus representation metadata to describe those bytes
+
+"Data, metadata describing the data, and, on occasion, metadata to describe
+the metadata."
+
+Metadata is name-value pairs
+
+Responses may include both representation metadata and resource metadata.
+Resource metadata is information about the resource not specific to the supplied
+representation.
+
+Control data provides:
+
+* action being requested (e.g. HTTP GET)
+* meaning of a response (e.g. response code)
+* parametrize requests (e.g. query parameters)
+* override default behavior of connectors (e.g. cache-control)
+
+A representation may indicate the current state, the desired state, or the
+value of another resource.
+
+Media type indicates the data format of a representation. **Composite media
+types may be used to enclose multiple representations in a single message.**
+
+Connectors
+**********
+
+Encapsulate the activity of accessing resources and transferring representations.
+
+Connectors present an abstract interface for component communication.
+
+Allows:
+
+* Simplicity (separation of concerns, hiding implementation)
+* Substitutability
+
+Examples:
+
+Connector         Examples
+client            requests, curl, libwww
+server            nginx, apache
+cache             browser cache, Akamai
+resolver          DNS
+tunnel            SSL, Sockets
+
+Each request **must** contain all of the information necessary for a connector
+to understand the request, independent of any requests that may have preceded it.
+
+* Removes need for connectors to retain application state (reduces consumption
+  of physical resources and improves scalability)
+* allows interactions to be processed in parallel
+* allows intermediary to view and understand a request in isolation
+* forces all information that might factor in to reusability o a cached response
+  to be present in each request
+
+In parameters:
+
+* request control data
+* resource identifier
+* optional representation
+
+Out parameters:
+
+* response control data
+* resource metadata
+* optional representation
+
+Components
+**********
+
+=============   ======================
+Component       Examples
+=============   ======================
+origin server   WSGI server, httpd
+gateway         CGI, reverse proxy
+proxy           Netscape proxy
+user agent      Firefox, Chrome
+=============   ======================
+
+User agents use client connectors to initiate a request and become the
+recipient of a response.
+
+Origin servers use server connectors to govern the namespace for a requested
+resource. They are the definitive source for representations and must be
+the ultimate recipient of requests intended to modify resource values.
+
+Proxies are intermediaries selected by a client to provide interface
+encapsulation, data translation, performance enhancement, or security
+protection.
+
+Gateways provide interface encapsulation of other services, data translation,
+performance enhancement, or security enforcement.
+
+REST Architectural Views
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+This section provides examples of the interaction between REST architectural
+elements from various perspectives.
+
