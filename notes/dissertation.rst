@@ -106,7 +106,7 @@ Properties
 Styles
 ++++++
 
-  An **architectural style** is a coordinated ste of architectural constraints
+  An **architectural style** is a coordinated set of architectural constraints
   that restrict the roles/features of architectural elements and the allowed
   relationships among those elements within any architecture that conforms
   to that style
@@ -754,7 +754,7 @@ Internet-scale
 
     The web is intended to be an *Internet-scale* distributed hypermedia system
 
-Must be abel to interconnect information across multiple organizational
+Must be able to interconnect information across multiple organizational
 boundaries, as well as geographic dispersement. Anarchic scalability and
 independent deployment of components are required.
 
@@ -897,6 +897,8 @@ REST - Cache
 ++++++++++++
 
 Responses must be implicitly or explicitly labeled as cacheable or non-cacheable.
+
+This provides:
 
 * Efficiency
 * Partially or completely eliminate some interactions
@@ -1057,12 +1059,15 @@ Allows:
 
 Examples:
 
+================ ==============================
 Connector         Examples
+================ ==============================
 client            requests, curl, libwww
 server            nginx, apache
 cache             browser cache, Akamai
 resolver          DNS
 tunnel            SSL, Sockets
+================ ==============================
 
 Each request **must** contain all of the information necessary for a connector
 to understand the request, independent of any requests that may have preceded it.
