@@ -9,7 +9,7 @@ development of the REST architectural style.
 Low Barrier to Entry
 ***********************
 
-* Hypermedia[*]_ is simple and generalizable
+* Hypermedia [*]_ is simple and generalizable
 
   + Arbitrary structuring and relationships
 
