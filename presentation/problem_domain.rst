@@ -72,4 +72,4 @@ Independent Deployment
 
 ....
 
-`previous <history.rst>`_ | `next <hypotheses.rst>`_
+`previous <history.rst>`_ | `next <architecture_definitions.rst>`_

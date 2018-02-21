@@ -42,4 +42,4 @@ Architectural Style
 
 ....
 
-`previous <hypotheses.rst>`_ | `next <existing_architecture.rst>`_
+`previous <problem_domain.rst>`_ | `next <hypotheses.rst>`_

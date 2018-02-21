@@ -28,4 +28,4 @@ Three
 
 ....
 
-`previous <problem_domain.rst>`_ | `next <architecture_definitions.rst>`_
+`previous <architecture_definitions.rst>`_ | `next <existing_architecture.rst>`_
