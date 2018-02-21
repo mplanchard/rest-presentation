@@ -34,6 +34,8 @@ Control Metadata:
 
 * Cache-Control: ``max-age=3600`` (Megan's info is not a time-sensitive resource,
   so feel free to cache it for an hour)
+* Vary: ``Content-Type`` (If the client asks for a different content type,
+  this cached response is no good)
 
 Representation Metadata:
 
@@ -42,7 +44,9 @@ Representation Metadata:
 Resource Metadata:
 
 * Link: ``<stuffaboutfolk.com/folks/megan>; rel=alternate; type="image/png";
-  title="profile picture"`` (I've got another representation of Megan)
+  title="profile picture"`` (I've got another representation of Megan here) [*]_
+* Link: ``<stuffaboutfolk.com/folks/megan>; rel=self; type="application/json";
+  title="profile picture"`` (This is my location)
 
 Representation:
 
@@ -74,6 +78,8 @@ Response
 Control Metadata:
 
 * Cache-Control: ``max-age=3600`` (we don't update information about Bob that often)
+* Vary: ``Content-Type`` (If the client asks for a different content type,
+  this cached response is no good)
 
 Representation Metadata:
 
@@ -81,8 +87,11 @@ Representation Metadata:
 
 Resource Metadata:
 
-* Link: ``<stuffaboutfolk.com/folks/megan>; rel=alternate; type="application/json";
-  title="info"`` (I've got another representation of Megan)
+* Link::
+
+    <stuffaboutfolk.com/folks/megan>; rel=alternate; type="image/png"; title="profile picture",
+    <stuffaboutfolk.com/folks/megan>; rel=alternate; type="application/json"; title="info"
+
 
 Representation:
 
@@ -93,8 +102,9 @@ Representation:
 Picasso, *Head of a Woman* [*]_
 
 
+.. [*] link header defined in `RFC 5988 <https://tools.ietf.org/html/rfc5988>`_
 .. [*] retrieved from the `Metropolitan Museum of Art <https://www.metmuseum.org/toah/works-of-art/1990.192/>`_, 2018-02-20
 
 ....
 
-`previous <data_elements_resources.rst>`_ | `next <>
+`previous <data_elements_resources.rst>`_ | `next <rest_and_http.rst>`_
