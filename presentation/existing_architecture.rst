@@ -45,4 +45,4 @@ However:
 
 ....
 
-`previous <architecture_definitions.rst>`_ | `next <rest_additions.rst>`_
+`previous <hypotheses.rst>`_ | `next <rest_additions.rst>`_
