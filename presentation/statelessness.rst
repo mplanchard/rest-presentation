@@ -41,7 +41,7 @@ power, clear their cache, delete their web browser, and buy a new computer?
 Option Two - State is just a Resource
 =====================================
 
-Anything can be a resource.
+**Anything that can be named can be a resource.**
 
 If you need to persist state in a resilient way, you can just store it in your
 database or redis store and provide a resource for the client to store and
@@ -80,3 +80,7 @@ Cookies should be viewed as untrusted until verified, like all authentication da
 
 For expiring cookies, consider using a signed JWT, which can be validated
 to have not been tampered with and programmed to expire.
+
+....
+
+`previous <rest_and_http.rst>`_ | `next <resources.rst>`_

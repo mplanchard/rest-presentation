@@ -11,7 +11,7 @@ Components must interact through a uniform interface, which specifies:
 * Identification of resources
 * Manipulation of resources through representation
 * Self-descriptive messages
-* "Hypermedia as the engine of application state"
+* "Hypermedia as the engine of application state" (HATEOAS)
 
 Provides:
 

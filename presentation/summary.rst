@@ -11,7 +11,7 @@ REST
 * Stands for **Representational State Transfer**
 * Is an architectural style, not an interface specification or a protocol
 * Emphasizes speed, reliability, evolution, and reuse in a network context
-* Hypertext-driven [#f1]_
+* Hypertext-driven [*]_
 * HTTP was designed with REST as its guiding principle
 * You should read `the dissertation <https://www.ics.uci.edu/~fielding/pubs/dissertation/top.htm>`_
 
@@ -31,10 +31,10 @@ REST Servers
 
 ....
 
-.. [#f1] In the context of REST, "hypertext" means content in which there is a
-        "simultaneous presentation of information and controls such that the
-        information becomes the affordance through which the user (or automaton)
-        obtains choices and selects actions."
+.. [*] In the context of REST, "hypertext" means content in which there is a
+       "simultaneous presentation of information and controls such that the
+       information becomes the affordance through which the user (or automaton)
+       obtains choices and selects actions."
 
 ....
 
