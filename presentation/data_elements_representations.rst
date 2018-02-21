@@ -87,7 +87,7 @@ Resource Metadata:
 Representation:
 
 .. image:: img/picasso_head_of_a_woman.jpg
-   :width: 50%
+   :width: 300px
    :align: center
 
 Picasso, *Head of a Woman* [*]_
